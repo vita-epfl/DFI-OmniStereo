@@ -1,0 +1,11 @@
+*.out
+outputs
+.hydra
+__pycache__
+checkpoints
+wandb
+.vscode
+experiments
+*.so
+src/models/dfi_omnistereo/pretrained_models/*
+src/models/dfi_omnistereo/inference_results/
