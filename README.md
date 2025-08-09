@@ -1,20 +1,22 @@
-# DFI-OmniStereo
+# [IROS 2025] DFI-OmniStereo
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/boosting-omnidirectional-stereo-matching-with/omnnidirectional-stereo-depth-estimation-on)](https://paperswithcode.com/sota/omnnidirectional-stereo-depth-estimation-on?p=boosting-omnidirectional-stereo-matching-with)
 
 [**Project Page**](https://vita-epfl.github.io/DFI-OmniStereo-website/) |
-[**ArXiv**](https://arxiv.org/abs/2503.23502)
+[**Paper**](https://arxiv.org/pdf/2503.23502) |
+[**ArXiv**](https://arxiv.org/abs/2503.23502) |
+[**Video**](https://www.youtube.com/watch?v=CHDQBl_PPDo)
 
-This is the official repository of our paper:
+This is the official repository of our paper accepted at IROS 2025:
 
 **Boosting Omnidirectional Stereo Matching with a Pre-trained Depth Foundation Model**
 
-Authors: Jannik Endres, Oliver Hahn, Charles Corbière, Simone Schaub-Meyer, Stefan Roth, Alexandre Alahi
+Authors: [Jannik Endres](https://linkedin.com/in/jannik-endres), [Oliver Hahn](https://olvrhhn.github.io/), [Charles Corbière](https://chcorbi.github.io/), [Simone Schaub-Meyer](https://schaubsi.github.io/), [Stefan Roth](https://www.visinf.tu-darmstadt.de/visual_inference/people_vi/stefan_roth.en.jsp), [Alexandre Alahi](https://people.epfl.ch/alexandre.alahi)
 
 ## 🧭 Table of Contents
 1. [Abstract](#abstract)
-2. [Method](#method)
-3. [News](#news)
+2. [News](#news)
+3. [Method](#method)
 4. [Usage](#usage)
    - [Installation](#installation)
    - [Training](#training)
@@ -24,7 +26,7 @@ Authors: Jannik Endres, Oliver Hahn, Charles Corbière, Simone Schaub-Meyer, Ste
 6. [Acknowledgement](#acknowledgement)
 7. [Citation](#citation)
 
-## 📝 Abstract
+<h2 id="abstract">📝 Abstract</h2>
 
 <table width="950">
   <tr>
@@ -35,29 +37,30 @@ Authors: Jannik Endres, Oliver Hahn, Charles Corbière, Simone Schaub-Meyer, Ste
 
 **TL;DR:** Given a pair of equirectangular images captured by two vertically stacked omnidirectional cameras, DFI-OmniStereo integrates a large-scale pre-trained monocular relative depth foundation model into an iterative stereo matching approach. This method improves depth estimation accuracy, significantly outperforming the previous state-of-the-art method on the Helvipad dataset.
 
-**Abstract:** Omnidirectional depth perception is essential for mobile robotics applications that require scene understanding across a full 360° field of view. Camera-based setups offer a costeffective option by using stereo depth estimation to generate dense, high-resolution depth maps without relying on expensive active sensing. However, existing omnidirectional stereo matching approaches achieve only limited depth accuracy across diverse environments, depth ranges, and lighting conditions, due to the scarcity of real-world data. We present DFI-OmniStereo, a novel omnidirectional stereo matching method that leverages a large-scale pre-trained foundation model for relative monocular depth estimation within an iterative optimization-based stereo matching architecture. We introduce a dedicated two-stage training strategy to utilize the relative monocular depth features for our omnidirectional stereo matching before scale-invariant fine-tuning. DFI-OmniStereo achieves state-of-the-art results on the real-world Helvipad dataset, reducing disparity MAE by approximately 16% compared to the previous best omnidirectional stereo method. More details are available at <a href="https://vita-epfl.github.io/DFI-OmniStereo-website/">https://vita-epfl.github.io/DFI-OmniStereo-website/</a>.
+**Abstract:** Omnidirectional depth perception is essential for mobile robotics applications that require scene understanding across a full 360° field of view. Camera-based setups offer a cost-effective option by using stereo depth estimation to generate dense, high-resolution depth maps without relying on expensive active sensing. However, existing omnidirectional stereo matching approaches achieve only limited depth accuracy across diverse environments, depth ranges, and lighting conditions, due to the scarcity of real-world data. We present DFI-OmniStereo, a novel omnidirectional stereo matching method that leverages a large-scale pre-trained foundation model for relative monocular depth estimation within an iterative optimization-based stereo matching architecture. We introduce a dedicated two-stage training strategy to utilize the relative monocular depth features for our omnidirectional stereo matching before scale-invariant fine-tuning. DFI-OmniStereo achieves state-of-the-art results on the real-world Helvipad dataset, reducing disparity MAE by approximately 16% compared to the previous best omnidirectional stereo method.
     </td>
   </tr>
 </table>
 
-## ⚙️ Method
+<h2 id="news">📰 News</h2>
+
+- **09/08/2025:** Our paper has been accepted at [IROS 2025](https://www.iros25.org/)! 🎉 Check out the updated [paper](https://arxiv.org/pdf/2503.23502) on [arXiv](https://arxiv.org/abs/2503.23502) and watch the [video](https://www.youtube.com/watch?v=CHDQBl_PPDo).
+- **11/04/2025:** Our code is now publicly available in this repository.
+- **30/03/2025:** Our paper is available on arXiv.
+
+<h2 id="method">⚙️ Method</h2>
 
 ![method](docs/architecture.png)
 
 A shared depth foundation model (purple) is utilized to extract representations from a top and bottom image. Subsequently, an omnidirectional stereo matching head (pink) predicts disparity, utilizing the image features as follows: The intermediate representations and relative depth maps of both images are adapted to be processed as multi-scale feature maps by the iterative matching head. This head predicts a disparity map using vertical warping for cost volume construction.
 
-The training consists of two stages. In training stage A (yellow), we adapt the stereo matching head to the omnidirectional data and the foundation model features (foundation model frozen) using a conventional stereo matching loss L_A. In stage B (orange), we fine-tune the foundation model decoder and the stereo matching head, utilizing a scale-invariant logarithmic loss L_B. Frozen and trainable modules are denoted with a snowflake and fire symbol, respectively.
+The training consists of two stages. In training stage A (blue), we adapt the stereo matching head to the omnidirectional data and the foundation model features (foundation model frozen) using a conventional stereo matching loss L_A. In stage B (orange), we fine-tune the foundation model decoder and the stereo matching head, utilizing a scale-invariant logarithmic loss L_B. Frozen and trainable modules are denoted with a snowflake and fire symbol, respectively.
 
-## 📰 News
-
-- **11/04/2025:** Our code is now publicy available in this repository.
-- **30/03/2025:** Our paper is available on arXiv.
-
-## 🚀 Usage
+<h2 id="usage">🚀 Usage</h2>
 
 We use [Hydra](https://hydra.cc/) for configuration management and [Weights & Biases](https://wandb.ai/site/) for comprehensive experiment tracking and visualization.
 
-### 🔧 Installation
+<h3 id="installation">🔧 Installation</h3>
 
 #### 1. Set up the environment
 
@@ -97,7 +100,7 @@ mkdir -p ./src/models/dfi_omnistereo/pretrained_models/dfi_omnistereo && \
 wget -O ./src/models/dfi_omnistereo/pretrained_models/dfi_omnistereo/dfi_omnistereo_helvipad.pth "https://tudatalib.ulb.tu-darmstadt.de/bitstream/handle/tudatalib/4557/dfi_omnistereo_helvipad.pth"
 ```
 
-### 🏋️‍♂️ Training
+<h3 id="training">🏋️‍♂️ Training</h3>
 
 ##### Stage A
 
@@ -127,7 +130,7 @@ python train.py \
   --use_silog_loss=true
 ```
 
-### 📊 Evaluation
+<h3 id="evaluation">📊 Evaluation</h3>
 
 To evaluate our model using the main checkpoint and compute all metrics including Left-Right Consistency Error (LRCE), use:
 ```bash
@@ -141,7 +144,7 @@ python evaluate.py \
 ```
 Note: Setting `--calc_lrce=true` enables LRCE evaluation, which increases computation time.
 
-### 🔍 Inference
+<h3 id="inference">🔍 Inference</h3>
 
 #### Helvipad examples
 
@@ -186,7 +189,7 @@ This will run inference on the following scenes:
 
 The results will be saved in: `src/models/dfi_omnistereo/inference_results/360SD_paper_results`.
 
-## 📁 Repository Structure
+<h2 id="repository-structure">📁 Repository Structure</h2>
 
 Below is an overview of the repository structure, with descriptions for key files and directories:
 
@@ -229,17 +232,18 @@ Below is an overview of the repository structure, with descriptions for key file
 └── requirements.txt                             # Python dependencies for the project.
 ```
 
-## 🙏 Acknowledgement
+<h2 id="acknowledgement">🙏 Acknowledgement</h2>
 
 We thank the authors of [Depth Anything](https://github.com/LiheYoung/Depth-Anything), [DINOv2](https://github.com/facebookresearch/dinov2), [IGEV-Stereo](https://github.com/gangweiX/IGEV), and [RAFT-Stereo](https://github.com/princeton-vl/RAFT-Stereo) for releasing their code.
 
-## 📚 Citation
+<h2 id="citation">📚 Citation</h2>
 
 ```bibtex
-@article{endres2025dfiomnistereo,
-  author    = {Endres, Jannik and Hahn, Oliver and Corbière, Charles and Schaub-Meyer, Simone and Roth, Stefan and Alahi, Alexandre},
-  title     = {Boosting Omnidirectional Stereo Matching with a Pre-trained Depth Foundation Model},
-  journal   = {arxiv:2503.23502 [cs.CV]},
-  year      = {2025},
+@inproceedings{endres2025dfiomnistereo,
+  author        = {Endres, Jannik and Hahn, Oliver and Corbière, Charles and Schaub-Meyer, Simone and Roth, Stefan and Alahi, Alexandre},
+  title         = {Boosting Omnidirectional Stereo Matching with a Pre-trained Depth Foundation Model},
+  booktitle     = {2025 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year          = {2025},
+  organization  = {IEEE}
 }
 ```
