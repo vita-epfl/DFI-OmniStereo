@@ -60,6 +60,13 @@ The training consists of two stages. In training stage A (blue), we adapt the st
 
 We use [Hydra](https://hydra.cc/) for configuration management and [Weights & Biases](https://wandb.ai/site/) for comprehensive experiment tracking and visualization.
 
+⚠️ Note:
+We use the original Helvipad disparity maps and disparity-to-depth conversion.
+After the publication of this work, a minor error was identified in the Helvipad depth-to-disparity conversion formula.
+For future work, we recommend the usage of the corrected disparity maps and conversion.
+To do so, update [conversion.py](https://github.com/vita-epfl/DFI-OmniStereo/blob/main/src/general/conversion.py) and [stereo_datasets.py](https://github.com/vita-epfl/DFI-OmniStereo/blob/main/src/general/stereo_datasets.py) as described in those files.
+We expect the results to differ only slightly from those of our work obtained with the original Helvipad version.
+
 <h3 id="installation">🔧 Installation</h3>
 
 #### 1. Set up the environment
