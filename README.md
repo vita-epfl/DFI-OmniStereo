@@ -5,6 +5,7 @@
 [**Project Page**](https://vita-epfl.github.io/DFI-OmniStereo-website/) |
 [**Paper**](https://arxiv.org/pdf/2503.23502) |
 [**ArXiv**](https://arxiv.org/abs/2503.23502) |
+[**Poster**](docs/poster.pdf) |
 [**Video**](https://www.youtube.com/watch?v=CHDQBl_PPDo)
 
 This is the official repository of our paper accepted at IROS 2025:
